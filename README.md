@@ -1,6 +1,6 @@
 # A Deep-Learning Proposition for Computational Missile Guidance
 
-The paper explores using **deep Reinforcement Learning** to develop a computational guidance law for intercepting highly maneuvering targets with lateral acceleration constraints. By formulating the problem within an RL framework, we aim to generate optimal guidance commands. The study highlights the potential of deep RL in enhancing guidance algorithms and addressing the complexities of intercepting maneuvering targets. 
+The paper explores using **Deep Reinforcement Learning** to develop a computational guidance law for intercepting highly maneuvering targets with lateral acceleration constraints. By formulating the problem within an RL framework, we aim to generate optimal guidance commands. The study highlights the potential of deep RL in enhancing guidance algorithms and addressing the complexities of intercepting maneuvering targets. 
 
 The following assumptions are made while formulating the guidance problem: <br>
 -The linear speeds of the missile and the target are constant and known.  <br>
