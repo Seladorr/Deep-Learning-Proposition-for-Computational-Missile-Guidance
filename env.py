@@ -6,6 +6,7 @@ class env():
     def __init__(self,initial, v_t, v_m, a_max, Ta = 0.01):
         self.Ta = Ta
         self.r = initial[0]
+        # print('r:', self.r)
         self.lamda = initial[1]*math.pi/180
         self.gamma_m = initial[2]*math.pi/180
         self.gamma_t = initial[3]*math.pi/180
@@ -27,13 +28,17 @@ class env():
 
     def dynamics(self,a_g):
         a_g = a_g*self.a_max
-        # print('a_m:',a_m)
         self.a_m = self.a_m+((a_g-self.a_m)/0.2)*self.Ta
         if(self.a_m<-400):
             self.a_m = -400
         if(self.a_m>400):
             self.a_m = 400
         a_t = 0
+        # print('a_m:',self.a_m)
+        missile_x = self.v_m*math.cos(self.gamma_m)*0.01
+        missile_y = self.v_m*math.sin(self.gamma_m)*0.01
+        target_x = self.v_t*math.cos(self.gamma_t)*0.01
+        target_y = self.v_t*math.sin(self.gamma_t)*0.01
         self.r_dot = self.v_t*math.cos(self.gamma_t - self.lamda) - self.v_m*math.cos(self.gamma_m - self.lamda)
         self.r = self.Ta*(self.r_dot) + self.r
         self.lamda_dot = (self.v_t*math.sin(self.gamma_t - self.lamda) - self.v_m*math.sin(self.gamma_m - self.lamda))/self.r
@@ -47,7 +52,7 @@ class env():
             self.done = True
         else:
             self.done = False
-        return self.new_state, self.reward(), self.r, self.done
+        return self.new_state, self.reward(), self.r, self.done, missile_x, missile_y, target_x, target_y
 
     def reward(self):
         k_a = -0.2
@@ -71,6 +76,7 @@ class env():
             R_ter = 0
         reward = R_a + R_r + R_dr + R_ter
         self.score = self.score + reward
+        # print('gamma_m:', self.gamma_m*180/math.pi, 'gamma_t:', self.gamma_t*180/math.pi)
         # print('reward:',reward)
         return reward
 
